@@ -1,0 +1,1 @@
+# Plantilla guía para creación de carpetas, relacionadas con proyectos de ETL.
