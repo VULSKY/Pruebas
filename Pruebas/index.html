@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aether Analytics - Plataforma de Ingeniería y Pronóstico de Datos</title>
+  <meta name="description" content="Dashboard premium de analítica predictiva y visualización de datos de SaaS e E-commerce con capacidad de carga de CSVs.">
+  
+  <!-- Google Fonts: Outfit (títulos) e Inter (texto corrido) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Estilos del Proyecto -->
+  <link rel="stylesheet" href="styles.css">
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <!-- Fondo animado con círculos de gradientes desenfocados (Glows) -->
+  <div class="glow-bg">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+  </div>
+
+  <div class="app-container">
+    
+    <!-- BARRA LATERAL (SIDEBAR) -->
+    <aside class="sidebar" id="app-sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-logo">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="brand-name">Aether</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-item active" id="btn-tab-saas" data-tab="tab-saas">
+          <svg viewBox="0 0 24 24" class="nav-icon"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Selección de Internos
+        </button>
+        <button class="nav-item" id="btn-tab-ecom" data-tab="tab-ecom">
+          <svg viewBox="0 0 24 24" class="nav-icon"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          E-commerce
+        </button>
+        <button class="nav-item" id="btn-tab-custom" data-tab="tab-custom">
+          <svg viewBox="0 0 24 24" class="nav-icon"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Subir CSV
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="workspace-badge">
+          <div class="pulse-indicator"></div>
+          <div class="workspace-text">
+            <span class="ws-label">Workspace activo</span>
+            <span class="ws-path" title="C:\Users\IGORVULFERSSTHAVVISK\Documents\proyectos\anigravity">/proyectos/anigravity</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ÁREA DE CONTENIDO PRINCIPAL -->
+    <main class="main-content">
+      
+      <!-- CABECERA (HEADER) -->
+      <header class="main-header">
+        <div class="header-left">
+          <h1 id="page-title">Métricas SaaS & Proyecciones</h1>
+          <p class="header-subtitle" id="page-subtitle">Dashboard unificado de analítica en tiempo real e inteligencia predictiva</p>
+        </div>
+        <div class="header-right">
+          <div class="date-time-widget" id="datetime-widget">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span id="current-time">18:50</span>
+          </div>
+          <div class="profile-badge">
+            <span class="profile-initials">AV</span>
+            <span class="profile-name">Igor Vulfers</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- VISTA 1: ANALÍTICA SAAS -->
+      <section class="tab-pane active" id="tab-saas">
+        
+        <!-- Tarjetas de Métricas SaaS (KPIs) -->
+        <div class="dashboard-section">
+          <div class="kpi-grid">
+          <div class="kpi-card" id="kpi-saas-mrr">
+            <div class="kpi-header">
+              <span class="kpi-title">Ingreso Mensual Recurente (MRR)</span>
+              <div class="kpi-icon icon-mrr">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+            </div>
+            <div class="kpi-value" id="val-saas-mrr">$0</div>
+            <div class="kpi-change positive">
+              <span class="kpi-title">Total Estudiantes</span>
+              <div class="kpi-icon icon-users">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+            <div class="kpi-value" id="val-saas-mrr">0</div>
+            <div class="kpi-change positive">
+              <span class="trend-arrow"></span> Registros en el dataset
+            </div>
+          </div>
+
+          <div class="kpi-card" id="kpi-saas-users">
+            <div class="kpi-header">
+              <span class="kpi-title">Estudiantes Seleccionados</span>
+              <div class="kpi-icon icon-ltv">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+            <div class="kpi-value" id="val-saas-users">0</div>
+            <div class="kpi-change positive">
+              <span class="trend-arrow"></span> Alumnos admitidos
+            </div>
+          </div>
+
+          <div class="kpi-card" id="kpi-saas-churn">
+            <div class="kpi-header">
+              <span class="kpi-title">Tasa de Selección</span>
+              <div class="kpi-icon icon-mrr">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/><line x1="8" y1="12" x2="16" y2="12" stroke="currentColor" stroke-width="2"/></svg>
+              </div>
+            </div>
+            <div class="kpi-value" id="val-saas-churn">0.0%</div>
+            <div class="kpi-change positive" id="change-saas-churn">
+              <span class="trend-arrow"></span> Tasa general de admisión
+            </div>
+          </div>
+
+          <div class="kpi-card" id="kpi-saas-ltv">
+            <div class="kpi-header">
+              <span class="kpi-title">CGPA Promedio</span>
+              <div class="kpi-icon icon-churn">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18" stroke="currentColor" stroke-width="2" fill="none"/><polyline points="17 6 23 6 23 12" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+              </div>
+            </div>
+            <div class="kpi-value" id="val-saas-ltv">0</div>
+            <div class="kpi-change positive">
+              <span class="trend-arrow"></span> Calificación académica media
+            </div>
+          </div>
+        </div>
+
+        <!-- Sección de Gráficos SaaS -->
+          <div class="charts-grid">
+          <!-- Gráfico de Comparación de Atributos -->
+          <div class="chart-card large">
+            <div class="chart-header">
+              <h3>Perfil de Estudiantes: Seleccionados vs Rechazados</h3>
+              <p>Comparación del promedio de calificaciones y habilidades clave de rendimiento</p>
+            </div>
+            <div class="chart-container-inner">
+              <canvas id="chart-saas-history"></canvas>
+            </div>
+          </div>
+
+          <!-- Módulo de Simulación Predictiva -->
+          <div class="chart-card medium predictor-card">
+            <div class="chart-header">
+              <h3>Simulador de Selección de Estudiantes</h3>
+              <p>Ajusta el perfil del alumno para calcular la probabilidad de selección en tiempo real</p>
+              <span class="accuracy-badge" id="saas-r2-badge">Precisión del modelo: R² = --</span>
+            </div>
+            <div class="predictor-body">
+              <div class="predictor-controls">
+                <div class="control-group">
+                  <div class="control-label">
+                    <span>CGPA (Calificación Académica)</span>
+                    <span class="control-value" id="val-slider-saas-growth">7.5</span>
+                  </div>
+                  <input type="range" id="slider-saas-growth" min="4.0" max="10.0" step="0.1" value="7.5" class="slider">
+                  <span class="slider-labels"><span>Bajo (4.0)</span><span>Promedio (7.0)</span><span>Excelente (10.0)</span></span>
+                </div>
+
+                <div class="control-group">
+                  <div class="control-label">
+                    <span>Puntuación de Habilidades (Skills Score)</span>
+                    <span class="control-value" id="val-slider-saas-churn">5</span>
+                  </div>
+                  <input type="range" id="slider-saas-churn" min="1" max="10" step="1" value="5" class="slider">
+                  <span class="slider-labels"><span>Bajo (1)</span><span>Medio (5)</span><span>Excelente (10)</span></span>
+                </div>
+
+                <div class="control-group">
+                  <div class="control-label">
+                    <span>Prueba de Codificación (Coding Score)</span>
+                    <span class="control-value" id="val-slider-saas-coding">5</span>
+                  </div>
+                  <input type="range" id="slider-saas-coding" min="1" max="10" step="1" value="5" class="slider">
+                  <span class="slider-labels"><span>Bajo (1)</span><span>Medio (5)</span><span>Excelente (10)</span></span>
+                </div>
+              </div>
+              
+              <!-- Probabilidad de Selección -->
+              <div class="selection-probability-display">
+                <div class="probability-label">Probabilidad de Selección Estimada</div>
+                <div class="probability-percentage" id="val-saas-probability">0%</div>
+                <div class="probability-gauge-container">
+                  <div class="probability-gauge-fill" id="gauge-saas-probability" style="width: 0%;"></div>
+                </div>
+              </div>
+
+              <div class="predictor-chart-container" style="height: 140px;">
+                <canvas id="chart-saas-forecast"></canvas>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VISTA 2: ANALÍTICA REPORTE NORDVITAL IPS -->
+      <section class="tab-pane" id="tab-ecom">
+        
+        <!-- Filtros Interactivos Nordvital -->
+        <div class="nordvital-filters-section">
+          <h3>Filtros Interactivos del Reporte</h3>
+          <div class="filters-grid">
+            <div class="filter-group">
+              <label for="filter-date-from">Fecha Desde:</label>
+              <input type="date" id="filter-date-from" placeholder="Desde...">
+            </div>
+            <div class="filter-group">
+              <label for="filter-date-to">Fecha Hasta:</label>
+              <input type="date" id="filter-date-to" placeholder="Hasta...">
+            </div>
+            <div class="filter-group">
+              <label for="filter-tipo-cita">Tipo de Atención:</label>
+              <select id="filter-tipo-cita">
+                <option value="">Todos los tipos</option>
+                <!-- Se llena dinámicamente -->
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="filter-medico">Médico:</label>
+              <select id="filter-medico">
+                <option value="">Todos los médicos</option>
+                <!-- Se llena dinámicamente -->
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="filter-medico-nombre">Nombre del Médico:</label>
+              <select id="filter-medico-nombre">
+                <option value="">Todos los nombres</option>
+                <!-- Se llena dinámicamente -->
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="filter-medico-especialidad">Especialidad del Médico:</label>
+              <select id="filter-medico-especialidad">
+                <option value="">Todas las especialidades</option>
+                <!-- Se llena dinámicamente -->
+              </select>
+            </div>
+            <button id="btn-reset-filters" class="btn-secondary">Limpiar Filtros</button>
+          </div>
+        </div>
+        
+        <!-- Tarjetas de Métricas Nordvital (KPIs) -->
+        <div class="dashboard-section">
+          <div class="kpi-grid">
+          <div class="kpi-card" id="kpi-ecom-sales">
+            <div class="kpi-header">
+              <span class="kpi-title">Total de Citas</span>
+              <div class="kpi-icon icon-ecom-sales">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+            </div>
+            <div class="kpi-value" id="val-ecom-sales">0</div>
+            <div class="kpi-change positive">
+              <span class="trend-arrow">📊</span> Citas registradas en el período
+            </div>
+          </div>
+
+          <div class="kpi-card" id="kpi-ecom-orders">
+            <div class="kpi-header">
+              <span class="kpi-title">Citas Completadas</span>
+              <div class="kpi-icon icon-ecom-orders">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+            </div>
+            <div class="kpi-value" id="val-ecom-orders">0</div>
+            <div class="kpi-change positive">
+              <span class="trend-arrow">✓</span> Estado completado
+            </div>
+          </div>
+
+          <div class="kpi-card" id="kpi-ecom-aov">
+            <div class="kpi-header">
+              <span class="kpi-title">Citas Incumplidas</span>
+              <div class="kpi-icon icon-ecom-aov">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              </div>
+            </div>
+            <div class="kpi-value" id="val-ecom-aov">0</div>
+            <div class="kpi-change positive">
+              <span class="trend-arrow">✗</span> No asistencia
+            </div>
+          </div>
+
+          <div class="kpi-card" id="kpi-ecom-conv">
+            <div class="kpi-header">
+              <span class="kpi-title">Tasa de Cumplimiento</span>
+              <div class="kpi-icon icon-ecom-conv">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M3 12a9 9 0 1 0 18 0A9 9 0 0 0 3 12z"/></svg>
+              </div>
+            </div>
+            <div class="kpi-value" id="val-ecom-conv">0%</div>
+            <div class="kpi-change positive">
+              <span class="trend-arrow">%</span> Porcentaje de cumplimiento
+            </div>
+          </div>
+          </div>
+
+          <!-- Sección de Gráficos Nordvital -->
+          <div class="charts-grid-ecom">
+          
+          <div class="chart-card main-ecom-chart">
+            <div class="chart-header">
+              <h3>Citas por Día (Tendencia)</h3>
+              <p>Distribución temporal de citas registradas</p>
+            </div>
+            <div class="chart-container-inner-large">
+              <canvas id="chart-ecom-sales-forecast"></canvas>
+            </div>
+          </div>
+
+          <div class="chart-card side-ecom-chart-1">
+            <div class="chart-header">
+              <h3>Distribución por Tipo de Atención</h3>
+              <p>Proporción de citas por tipo</p>
+            </div>
+            <div class="chart-container-inner-donut">
+              <canvas id="chart-ecom-channels"></canvas>
+            </div>
+          </div>
+
+          <div class="chart-card side-ecom-chart-2">
+            <div class="chart-header">
+              <h3>Top 10 Médicos por Citas</h3>
+              <p>Cantidad de citas atendidas por profesional</p>
+            </div>
+            <div class="chart-container-inner-bar">
+              <canvas id="chart-ecom-products"></canvas>
+            </div>
+          </div>
+          </div>
+        </div>
+
+        <!-- Tabla Interactiva de Registros Nordvital -->
+        <div class="nordvital-table-section">
+          <div class="table-header-controls">
+            <h3>Explorador de Citas</h3>
+            <div class="table-search-box">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="nordvital-search" placeholder="Buscar por paciente, médico, diagnóstico...">
+            </div>
+          </div>
+
+          <div class="table-scroll-container">
+            <table class="data-table" id="nordvital-table">
+              <thead>
+                <tr id="nordvital-headers">
+                  <!-- Encabezados dinámicos -->
+                </tr>
+              </thead>
+              <tbody id="nordvital-body">
+                <!-- Filas dinámicas -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="table-pagination">
+            <span class="pagination-info" id="nordvital-pagination-info">Mostrando 0 registros</span>
+            <div class="pagination-buttons">
+              <button class="btn-pagination" id="btn-nordvital-prev" disabled>Anterior</button>
+              <button class="btn-pagination" id="btn-nordvital-next">Siguiente</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VISTA 3: CARGA Y EXPLORACIÓN DE CSV PERSONALIZADO -->
+      <section class="tab-pane" id="tab-custom">
+        <div class="csv-upload-container">
+          
+          <!-- Dropzone de Archivos -->
+          <div class="csv-dropzone" id="csv-dropzone">
+            <div class="dropzone-icon">
+              <svg viewBox="0 0 24 24" width="48" height="48" stroke="currentColor" stroke-width="1.5" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            </div>
+            <h3>Sube tu archivo de datos (.CSV)</h3>
+            <p>Arrastra tu archivo aquí o haz clic para explorar tus carpetas locales</p>
+            <input type="file" id="csv-file-input" accept=".csv" style="display: none;">
+            <button class="btn-primary" id="btn-browse-file">Buscar Archivo</button>
+          </div>
+
+          <!-- Opciones de Muestra de Archivos -->
+          <div class="csv-samples">
+            <span>¿No tienes un archivo? Prueba con datos de muestra:</span>
+            <button class="btn-secondary" id="btn-load-sample-saas">Cargar Muestra SaaS</button>
+            <button class="btn-secondary" id="btn-load-sample-ecom">Cargar Muestra E-commerce</button>
+          </div>
+
+          <!-- Resultados de Análisis Estadístico del Archivo -->
+          <div class="csv-analysis-results" id="csv-analysis-results" style="display: none;">
+            
+            <div class="csv-stats-summary">
+              <h3>Análisis Rápido de Datos</h3>
+              <div class="stats-cards-grid" id="stats-cards-grid">
+                <!-- Se poblará dinámicamente -->
+              </div>
+            </div>
+
+            <div class="csv-table-view">
+              <div class="table-header-controls">
+                <h3>Explorador de Registros</h3>
+                <div class="table-search-box">
+                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  <input type="text" id="table-search-input" placeholder="Filtrar registros por valor...">
+                </div>
+              </div>
+
+              <div class="table-scroll-container">
+                <table class="data-table" id="data-explorer-table">
+                  <thead>
+                    <tr id="table-headers-row">
+                      <!-- Encabezados dinámicos -->
+                    </tr>
+                  </thead>
+                  <tbody id="table-body">
+                    <!-- Filas dinámicas -->
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="table-pagination">
+                <span class="pagination-info" id="pagination-info">Mostrando 1 a 10 de 100 registros</span>
+                <div class="pagination-buttons">
+                  <button class="btn-pagination" id="btn-prev-page" disabled>Anterior</button>
+                  <button class="btn-pagination" id="btn-next-page">Siguiente</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- Carga de Lógica de la Aplicación -->
+  <script src="nordvital-data.js"></script>
+  <script src="dataset-data.js"></script>
+  <script src="data-engine.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

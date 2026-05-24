@@ -1,0 +1,11 @@
+{
+  "name": "aether-nordvital-agent",
+  "version": "1.0.0",
+  "platform": "RooCode",
+  "entry": "roo-agent.agent.md",
+  "description": "Agente adaptado para Roo Code que ayuda a mantener estilos, filtros y convenciones del proyecto Aether/Nordvital.",
+  "triggers": ["manual", "on-demand"],
+  "files": ["index.html", "styles.css", "app.js", "nordvital-data.js", "agend.md"],
+  "author": "Equipo Aether",
+  "created": "2026-05-24"
+}
