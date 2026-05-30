@@ -90,6 +90,11 @@ body {
 .tab-pane.active .charts-grid { display: grid; }
 .tab-pane.active .charts-grid-ecom { display: grid; }
 
+/* Layout específico para la pestaña SaaS: gráfico y simulador en columna única */
+.tab-pane#tab-saas.active .charts-grid {
+    grid-template-columns: 1fr;
+}
+
 /* Buttons */
 .btn-primary { background: linear-gradient(90deg,var(--color-primary),var(--accent)); color:#001219; border:none; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:600; }
 .btn-secondary { background: transparent; border:1px solid var(--glass-border); color:var(--text-main); padding:8px 12px; border-radius:8px; cursor:pointer; }
@@ -160,40 +165,78 @@ body {
     font-size: 0.9rem;
 }
 
-/* Estilo base para inputs y selects dentro de los filtros */
-.filter-group input[type="date"],
-.filter-group select {
+/* Estilo base para inputs dentro de los filtros */
+.filter-group input[type="date"] {
     padding: 10px 12px;
     border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 8px;
-    background: rgba(0, 0, 0, 0.2); /* Fondo oscuro semi-transparente */
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.2);
     color: var(--text-main);
     font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
     font-size: 0.95rem !important;
     font-weight: 500 !important;
-    appearance: none; /* Elimina el estilo nativo del select */
     cursor: pointer;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    transition: border-color 0.3s, box-shadow 0.3s ease;
     width: 100%;
     box-sizing: border-box;
 }
 
-/* Estilo para las opciones del select */
-.filter-group select option {
-    background: var(--bg-900);
+/* Estilo base para selects */
+.filter-group select {
+    padding: 10px 36px 10px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.15));
     color: var(--text-main);
     font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
     font-size: 0.95rem !important;
     font-weight: 500 !important;
-    padding: 8px;
+    appearance: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+    box-sizing: border-box;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2300e5ff' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px 8px;
+    padding-right: 36px;
+}
+
+/* Estilo para las opciones del select */
+.filter-group select option {
+    background: linear-gradient(180deg, var(--bg-800) 0%, var(--bg-900) 100%);
+    color: var(--text-main);
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+    font-size: 0.95rem !important;
+    font-weight: 500 !important;
+    padding: 10px 8px;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Opción seleccionada dentro del dropdown */
+.filter-group select option:checked {
+    background: linear-gradient(180deg, var(--color-primary) 0%, rgba(0, 229, 255, 0.7) 100%);
+    color: #001219;
 }
 
 /* Efecto de foco (Focus Glow) */
 .filter-group input[type="date"]:focus,
 .filter-group select:focus {
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 2px rgba(0, 229, 255, 0.3); /* Glow cyan */
+    box-shadow: 0 0 0 2px rgba(0, 229, 255, 0.3), 0 0 12px rgba(0, 229, 255, 0.2);
     outline: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2300e5ff' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px 8px;
+}
+
+/* Efecto hover en selects */
+.filter-group select:hover {
+    border-color: rgba(0, 229, 255, 0.5);
+    box-shadow: 0 0 8px rgba(0, 229, 255, 0.15);
 }
 
 /* Estilo para el botón de reset */
@@ -213,4 +256,225 @@ body {
 #btn-reset-filters:hover {
     background: rgba(255, 255, 255, 0.15);
     border-color: var(--color-primary);
+}
+
+/* ==========================================================================
+    ESTILOS ADICIONALES PARA SELECTS - Compatibilidad entre navegadores
+    ========================================================================= */
+
+/* Firefox: Personalización de opciones */
+.filter-group select option {
+    color-scheme: dark;
+}
+
+/* Safari: Mejora del dropdown */
+@supports (-webkit-appearance: none) {
+    .filter-group select {
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.15)) no-repeat;
+        background-position: right 10px center;
+        background-size: 12px 8px;
+    }
+}
+
+/* Select deshabilitado */
+.filter-group select:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Select con valor inválido */
+.filter-group select:invalid {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Mejorar contraste del texto en opciones para Firefox */
+@-moz-document url-prefix() {
+    .filter-group select option {
+        background: var(--bg-900);
+        color: var(--text-main);
+        padding: 8px;
+        line-height: 1.5;
+    }
+
+    .filter-group select option:checked {
+        background: linear-gradient(180deg, var(--color-primary) 0%, rgba(0, 229, 255, 0.7) 100%);
+        color: #001219;
+    }
+}
+
+/* Mejora para cuando el select está activo (abierto) */
+.filter-group select:active {
+    border-color: var(--color-primary);
+}
+
+/* ==========================================================================
+    CUSTOM DROPDOWN SYSTEM - Reemplazo de selects nativos
+    ========================================================================= */
+
+.custom-dropdown-container {
+    position: relative;
+    width: 100%;
+}
+
+.custom-dropdown-button {
+    width: 100%;
+    padding: 10px 36px 10px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.15));
+    color: var(--text-main);
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    text-align: left;
+}
+
+.custom-dropdown-button:hover {
+    border-color: rgba(0, 229, 255, 0.5);
+    box-shadow: 0 0 8px rgba(0, 229, 255, 0.15);
+}
+
+.custom-dropdown-button:focus,
+.custom-dropdown-button.active {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(0, 229, 255, 0.3), 0 0 12px rgba(0, 229, 255, 0.2);
+    outline: none;
+}
+
+.dropdown-label {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dropdown-icon {
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+    color: var(--color-primary);
+    opacity: 0.8;
+}
+
+.custom-dropdown-button.active .dropdown-icon {
+    transform: rotate(180deg);
+}
+
+.custom-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: linear-gradient(180deg, rgba(15, 25, 50, 0.98), rgba(7, 17, 38, 0.98));
+    border: 1px solid rgba(0, 229, 255, 0.2);
+    border-radius: 12px;
+    box-shadow: 
+        0 20px 45px rgba(0, 0, 0, 0.6),
+        0 0 20px rgba(0, 229, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.custom-dropdown-menu.active {
+    max-height: 400px;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.custom-dropdown-item {
+    padding: 12px 12px;
+    color: var(--text-main);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    display: flex;
+    align-items: center;
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.custom-dropdown-item:hover,
+.custom-dropdown-item:focus {
+    background: rgba(0, 229, 255, 0.15);
+    border-left-color: var(--color-primary);
+    outline: none;
+    padding-left: 12px;
+}
+
+.custom-dropdown-item.selected {
+    background: linear-gradient(90deg, var(--color-primary) 0%, rgba(0, 229, 255, 0.6) 100%);
+    color: #001219;
+    border-left-color: var(--color-primary);
+    font-weight: 600;
+}
+
+.custom-dropdown-item.selected:hover {
+    background: linear-gradient(90deg, var(--color-primary) 0%, rgba(0, 229, 255, 0.8) 100%);
+}
+
+/* Scroll personalizado para los dropdowns */
+.custom-dropdown-menu::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-dropdown-menu::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-dropdown-menu::-webkit-scrollbar-thumb {
+    background: rgba(0, 229, 255, 0.3);
+    border-radius: 3px;
+}
+
+.custom-dropdown-menu::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 229, 255, 0.6);
+}
+
+/* Firefox scrollbar */
+.custom-dropdown-menu {
+    scrollbar-color: rgba(0, 229, 255, 0.3) transparent;
+    scrollbar-width: thin;
+}
+
+/* Ocultar select original pero mantener en el DOM */
+.filter-group select {
+    display: none !important;
+}
+
+/* Responsive para dispositivos pequeños */
+@media (max-width: 768px) {
+    .custom-dropdown-menu {
+        max-height: 300px;
+    }
+
+    .custom-dropdown-item {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+
+    .custom-dropdown-button {
+        font-size: 0.9rem;
+        padding: 8px 32px 8px 12px;
+    }
 }

@@ -382,6 +382,16 @@ document.addEventListener('DOMContentLoaded', () => {
       selectEspecialidad.appendChild(option);
     });
 
+    // Reinitializar los dropdowns custom con las nuevas opciones
+    if (typeof DropdownManager !== 'undefined') {
+      setTimeout(() => {
+        DropdownManager.reinitializeSelect('filter-tipo-cita');
+        DropdownManager.reinitializeSelect('filter-medico');
+        DropdownManager.reinitializeSelect('filter-medico-nombre');
+        DropdownManager.reinitializeSelect('filter-medico-especialidad');
+      }, 100);
+    }
+
     // Función para aplicar filtros
     const applyNordvitalFilters = () => {
       state.nordvitalFilters.filteredData = nordvitalData.filter(record => {
